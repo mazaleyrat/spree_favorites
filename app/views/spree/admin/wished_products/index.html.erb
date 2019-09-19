@@ -1,0 +1,58 @@
+<%= render partial: 'spree/admin/users/sidebar', locals: { current: :wishlist } %>
+
+<% content_for :page_title do %>
+  <%= link_to @user.email, spree.edit_admin_user_url(@user) %> /
+  <%= t(:wishlist, scope: [:wishlist, :admin]) %>
+<% end %>
+
+<% if @wished_products.present? %>
+  <table id="wishlist" class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= Spree.t(:item_view) %></th>
+        <th><%= Spree.t(:name) %></th>
+        <th><%= Spree.t(:status) %></th>
+        <th><%= Spree.t(:date_added) %></th>
+        <th><%= Spree.t(:price) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody id="wished_items">
+      <% @wished_products.each do |wish|
+          variant = wish.variant
+          product = variant.product %>
+      <tr>
+        <td style="text-align:center">
+          <% if variant.images.length == 0 %>
+            <%= mini_image(variant.product) %>
+          <% else %>
+            <%= mini_image(variant) %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to product.try(:name), edit_admin_product_path(product) %>
+        </td>
+        <td>
+          <%= variant.can_supply? ? Spree.t(:in_stock) : Spree.t(:out_of_stock) %>
+        </td>
+        <td>
+          <%= wish.created_at.strftime '%m/%d/%Y' %>
+        </td>
+        <td>
+          <%= variant.display_price %>
+        </td>
+        <td class="actions actions-1 text-right">
+          <%= link_to_delete wish, url: admin_user_wished_product_url(@user, wish), no_text: true if can?(:delete, wish) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= t(:no_wished_products, scope: [:wishlist, :admin]) %>
+  </div>
+<% end %>
+
+
+<%= render 'spree/admin/users/lifetime_stats' %>

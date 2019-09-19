@@ -1,0 +1,5 @@
+<li id="wishlist_tab" <%= "class=active" if current == :wishlist %>>
+  <%= link_to spree.account_wished_products_path do %>
+    <span class="glyphicon glyphicon-heart-empty"></span> <%= t(:wishlist, scope: :wishlist) %>
+  <% end %>
+</li>

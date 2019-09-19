@@ -1,0 +1,16 @@
+<% content_for :sidebar do %>
+  <%= render partial: 'spree/users/account_sidebar', locals: {current: :wishlist} %>
+<% end %>
+
+<% if @wished_products.present? %>
+  <h2> <%= t(:wishlist, scope: :wishlist) %> </h2>
+  <div class="row" data-hook="whised_products">
+    <%= render partial: 'wished', collection: @wished_products %>
+  </div>
+<% else %>
+  <div class="alert alert-info">
+    <%= Spree.t(:no_wished_products) %>
+    <%= link_to Spree.t(:continue_shopping), spree.root_path %>      
+  </div>
+<% end %>
+
