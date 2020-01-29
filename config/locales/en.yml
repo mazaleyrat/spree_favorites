@@ -1,13 +1,13 @@
 ---
 en:
-  wishlist:
+  favorites:
     admin:
       false: "No"
-      no_wished_products: "No favorites found"
+      favorites: Favorites
+      no_favorite_products: No favorite products found
       true: "Yes"
-      updated_at: "Updated At"
-      wishlist: "Favorites"
-    added_to_wishlist: "Added to favorites"
+      updated_at: Updated At
+    added_to_favorites: "Added to favorites"
     are_you_sure_wishlist: "Are you sure that you want to delete this wishlist?"
     create_new_wishlist: "Create new wishlist"
     creating_wishlist: "Creating wishlist"

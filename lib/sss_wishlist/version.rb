@@ -1,4 +1,4 @@
-module SssWishlist
+module IsellFavorites
   module_function
 
   # Returns the version of the currently loaded SpreeWishlist as a

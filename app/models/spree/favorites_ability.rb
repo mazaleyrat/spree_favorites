@@ -1,5 +1,5 @@
 module Spree
-  class WishlistAbility
+  class FavoritesAbility
     include CanCan::Ability
 
     def initialize(user)
