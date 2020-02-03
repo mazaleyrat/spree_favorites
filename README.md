@@ -1,18 +1,18 @@
-# Isell Favorites
+# Spree Favorites
 
-The Isell Wishlist extension enables one favorites list per user, as well as managing it as public (sharable) or private. It is a RoR extension for Spree.
+Spree Favorites extension enables one favorites list per user, as well as managing it as public (sharable) or private. It is a RoR extension for Spree.
 
 ## Installation
 
 Add the following to your `Gemfile`
 ```ruby
-gem 'isell_favorites', github: 'MateoLa/isell_favorites'
+gem 'spree_favorites', github: 'MateoLa/spree_favorites'
 ```
 
 Run
 ```sh
 $ bundle install
-$ bundle exec rails g isell_favorites:install
+$ bundle exec rails g spree_favorites:install
 ```
 
 ## License
