@@ -1,4 +1,4 @@
-module IsellFavorites
+module SpreeFavorites
   module_function
 
   # Returns the version of the currently loaded SpreeWishlist as a
@@ -9,7 +9,7 @@ module IsellFavorites
 
   module VERSION
     MAJOR = 1
-    MINOR = 1
+    MINOR = 0
     TINY  = 0
     PRE   = nil
 

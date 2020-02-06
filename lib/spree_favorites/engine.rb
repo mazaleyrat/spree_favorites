@@ -1,7 +1,7 @@
-module IsellFavorites
+module SpreeFavorites
   class Engine < Rails::Engine
     
-    engine_name 'isell_favorites'
+    engine_name 'spree_favorites'
 
 #    config.autoload_paths += Dir["#{config.root}/lib"]
 
