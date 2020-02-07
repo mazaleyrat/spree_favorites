@@ -1,6 +1,7 @@
 # Spree Favorites
 
-Spree Favorites extension enables one favorites list per user, as well as managing it as public (sharable) or private. It is a RoR extension for Spree.
+Spree Favorites extension enables one list of favorite variants per user.
+It is a RoR extension for Spree (4.1 ready)
 
 ## Installation
 

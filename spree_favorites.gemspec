@@ -6,8 +6,8 @@ require 'spree_favorites/version'
 Gem::Specification.new do |spec|
   spec.platform    = Gem::Platform::RUBY
   spec.name        = 'spree_favorites'
-  spec.version     = IsellFavorites.version
-  spec.summary     = 'Add a favorites list to Isell'
+  spec.version     = SpreeFavorites.version
+  spec.summary     = 'Add a favorites list to Spree'
   spec.description = spec.summary
 
   spec.author    = ["VeroLa Srl."]

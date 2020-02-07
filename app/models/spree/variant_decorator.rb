@@ -1,5 +1,7 @@
-Spree::Variant.class_eval do
-
-  has_many :wished_products, dependent: :destroy, class_name: 'Spree::WishedProduct'
-
+module Spree::VariantDecorator
+  def self.prepended(base)
+    base.has_many :favorite_variants, dependent: :destroy, class_name: 'Spree::FavoriteVariant'
+  end
 end
+
+Spree::Variant.prepend Spree::VariantDecorator

@@ -1,6 +1,6 @@
-class Spree::WishedProductsController < Spree::StoreController
+class Spree::FavoriteVariantsController < Spree::StoreController
 
-  before_action :load_wishes
+  before_action :load_favorites
 
   def index
     return @wished_products
@@ -36,7 +36,7 @@ class Spree::WishedProductsController < Spree::StoreController
   private
 
   def load_wishes
-    @wished_products = spree_current_user.wished_products
+    @favorites = spree_current_user.favorite_variants
   end
 
 end
