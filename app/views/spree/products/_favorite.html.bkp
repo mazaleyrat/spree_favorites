@@ -1,0 +1,23 @@
+<% if spree_current_user %>
+<div data-hook="favorites-link">
+  <% favorites = spree_current_user.favorites %>
+  <% favorite_variants = favorites.map(&:variant_id) %>
+
+  <% wished = "wished" if favorites.include?(@product.id) %>
+  <%= link_to (inline_svg_tag "favorite.svg", class: "favorite-svg"), "", id: "js-favorite-link", method: :post, remote: true %>
+
+  <script type="text/javascript">
+    favorites = <%= favorite_variants %>;
+	</script>
+
+	<% if @product.has_variants? %>
+  	<script type="text/javascript">
+// 			$(docmument).ready(function(){ Initialize_Favorites();} );
+		</script>
+	<% end %>
+</div>
+<% else %>
+<div>
+  <%= link_to inline_svg_tag("favorite.svg", class: "favorite-svg"), "", id: "js-favorite-link", method: :post, remote: true %>
+</div>
+<% end %>

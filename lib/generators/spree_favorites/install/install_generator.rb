@@ -3,14 +3,6 @@ module SpreeFavorites
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
 
-#      def add_javascripts
-#        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require sss/wishlist\n"
-#      end
-
-#      def add_stylesheets
-#        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require sss/sss_wishlist\n", before: /\*\//, verbose: true
-#      end
-
       def add_migrations
         run 'rake railties:install:migrations FROM=spree_favorites'
       end
@@ -23,6 +15,14 @@ module SpreeFavorites
           puts 'Skipping rake db:migrate, don\'t forget to run it!'
         end
       end
+
+      def add_assets_to_spree
+        # "Injecting to File" avoids the need to override layouts
+        # adding scripts or stylesheets tags lines.
+        inject_into_file 'vendor/assets/javascripts/spree/frontend/all.js', "\n//= require spree_favorites/favorites", after: "spree/frontend", verbose: true
+        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', "\n *= require spree_favorites/frontend", after: "spree/frontend", verbose: true
+      end
+
     end
   end
 end

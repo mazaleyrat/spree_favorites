@@ -1,4 +1,5 @@
 /*
 *= require spree_favorites/favorites
-*= require_tree .
+*= require spree_favorites/bootstrap-overrides
+*= require spree_favorites/variables
 */

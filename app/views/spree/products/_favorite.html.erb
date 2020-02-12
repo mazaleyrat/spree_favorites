@@ -1,0 +1,11 @@
+<div class="favorite-link" data-hook="favorite-link">
+  <% if spree_current_user %>
+    <%# favorites = spree_current_user.favorites %>
+    <%# favorite_variants = favorites.map(&:variant_id) %>
+
+    <%# wished = "wished" if favorites.include?(@product.id) %>
+    <%= link_to (inline_svg_tag "favorite.svg", class: "favorite-svg"), "", id: "js-favorite-link" %>
+  <% else %>
+    <%= link_to (inline_svg_tag "favorite.svg", class: "favorite-svg"), spree_login_path if defined?(spree_login_path) %>
+  <% end %>
+</div>

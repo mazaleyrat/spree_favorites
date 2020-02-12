@@ -1,6 +1,6 @@
 ---
 en:
-  favorites:
+  spree:
     admin:
       false: "No"
       favorites: Favorites
@@ -12,7 +12,7 @@ en:
     create_new_wishlist: "Create new wishlist"
     creating_wishlist: "Creating wishlist"
     error: "Action error. Try again later or report the issue."
-    no_wished_products: "Your have no favorites at these time."    
-    removed_from_wishlist: "Removed from favorites"
+    favorite: Favorite
+    no_option_selected: You have no option selected
+    not_saved: An error ocurred trying to save your favorite. Please try again 
     take_a_look_at_my_wishlist: "Please, take a look at my wishlist:"
-    wishlist: "Favorites"

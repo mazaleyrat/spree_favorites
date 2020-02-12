@@ -1,6 +1,8 @@
 module Spree
-  class FavoriteProduct < ActiveRecord::Base
+  class Favorite < ActiveRecord::Base
 	  belongs_to :user, class_name: Spree.user_class.name
   	belongs_to :variant, class_name: 'Spree::Variant'
+
+  	validates :user, :variant, presence: true
   end
 end

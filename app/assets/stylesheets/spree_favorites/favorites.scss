@@ -1,20 +1,50 @@
-#wish_link {
+.favorite-link {
   position: absolute;
   top: 0;
   right: 0;
-  margin-right: 15px;
+  margin: 20px;
+  z-index: 2;
 }
 
-#wish_link svg {
+.favorite-svg {
+  height: 25px;  
   width: 25px;
-  height: 25px;
   margin: 5px;
   padding: 0;
   fill: grey;
-/*  filter: drop-shadow(0 0 2px #fff);
-  -webkit-filter: drop-shadow(0 0 2px #fff); */
 }
 
 .wished svg {
   fill: red !important;
 }
+
+@import "spree_favorites/variables";
+@import "spree_favorites/bootstrap-overrides";
+@import "bootstrap";
+
+
+.alert-success {
+  color: theme-color("success");
+  background-color: theme-color("light-background");
+  font-size: font-px-to-rem(12px);
+  margin-top: 10px;
+  flex-basis: 100%;
+  margin-bottom: 0;
+}
+
+.alert-notice {
+  color: theme-color("notice");
+  font-size: font-px-to-rem(12px);
+  margin-top: 10px;
+  flex-basis: 100%;
+  margin-bottom: 0;
+}
+
+.alert-error {
+  color: theme-color("danger");
+  font-size: font-px-to-rem(12px);
+  margin-top: 10px;
+  flex-basis: 100%;
+  margin-bottom: 0;
+}
+

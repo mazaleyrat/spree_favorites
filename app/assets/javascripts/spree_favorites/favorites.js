@@ -1,68 +1,65 @@
-$(document).ready(function(){
+Spree.routes.favorite = function(id) { return Spree.pathFor('variants/' + id + '/favorite') }
 
-  var radios = $("#product-variants input[type='radio']");
 
-  if (radios.length > 0) {
-    radios.click(function (event) {
-      variant_id = $('#product-variants input[type=radio]:checked').val();
-      if ( wished_variants.indexOf(parseInt(variant_id)) == -1 ){
-        $('#wish_link').removeClass('wished');
-      } else {
-        $('#wish_link').addClass('wished');
-      }
-    })
-  }
+Spree.ready(function($) {
 
-  $('#wish_link').on('click', function(event){
+//  Initialize_Favorites();
+
+  $('#js-favorite-link').on('click', function(event){
     event.preventDefault();
+    variant = parseInt($('#variant_id').val());
+    url = Spree.routes.favorite(variant);
 
-    var method = "";
-    variant_id = $('#variant_id').val();
-    selected_variant_id = $('#product-variants input[type=radio]:checked').val();
-    if (selected_variant_id){ variant_id = selected_variant_id; }
-
-    if ( wished_variants.indexOf(parseInt(variant_id)) == -1 ){
-      $('#wish_link').addClass('wished');
-      wished_variants.push(parseInt(variant_id));
-      method = "post";
-    } else {
-      $('#wish_link').removeClass('wished');
-      wished_variants.splice(wished_variants.indexOf(parseInt(variant_id)),1);
-      method = "delete";
+    if ( variant ){
+      $(this).hasClass('wished') ? $(this).removeClass('wished') : $(this).addClass('wished');
     }
 
-    Update_Wished_Products(method, variant_id);
+//      $('#js-favorite-link').addClass('wished');
+//      favorites.push(parseInt(variant_id));
+//      $('#js-favorite-link').removeClass('wished');
+//      favorites.splice(favorites.indexOf(parseInt(variant_id)),1);
+
+
+    Update_Favorites(variant);
   });
 });
 
 
-function Initialize_Wishes(){
-  variant_id = $('#product-variants input[type=radio]:checked').val();
-console.log(wished_variants, variant_id);
-  if ( wished_variants.indexOf(parseInt(variant_id)) > -1 ){
-    $('#wish_link').addClass('wished');
+
+
+
+function Initialize_Favorites (){
+  variant_id = $('#variant_id').val();
+console.log(favorites, variant_id);
+  if ( favorites.indexOf(parseInt(variant_id)) > -1 ){
+    $('#js-favorites-link').addClass('wished');
   } 
 }
 
 
-function Update_Wished_Products(method, variant){
-  url = "";
+function Update_Favorites(variant){
   data = "";
-  if (method == "post") { 
-    url = "/account/wished_products";
+/*  if (method == "post") { 
+    url = "/variants/favorites";
     data = "variant_id=" + variant
-  } else { url = "/account/wished_products/" + variant }
-
+  } else { url = "/variants/favorites/" + variant }
+*/
   $.ajax({
-    url: url,
-    method: method,
-    data: data,
+    url: Spree.routes.favorite(variant),
+    method: "post",
+//    data: data,
     success: function (data, status, xhr) {
       // success callback function
-      flashDiv = $('<div class="alert alert-' + data.type + '" />');
-      $('#content').prepend(flashDiv);
-      flashDiv.html(data.msg).show().delay(5000).slideUp()
+      PrependMessage(data.type, data.message)
     }
   });
   return false
+}
+
+function PrependMessage(type, message){
+  flashDiv = $('<div class="alert alert-' + type + '" />');
+  flashButton = $('<button class="close" data-dismiss="alert" data-hidden="true" />').html("&times;");
+  flashSpan = $('<span />').html(message)
+  $("main#content").prepend(flashDiv);
+  flashDiv.append(flashButton, flashSpan).show().delay(5000).slideUp();
 }
