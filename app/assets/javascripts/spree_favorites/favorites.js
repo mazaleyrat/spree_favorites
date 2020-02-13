@@ -8,7 +8,6 @@ Spree.ready(function($) {
   $('#js-favorite-link').on('click', function(event){
     event.preventDefault();
     variant = parseInt($('#variant_id').val());
-    url = Spree.routes.favorite(variant);
 
     if ( variant ){
       $(this).hasClass('wished') ? $(this).removeClass('wished') : $(this).addClass('wished');
@@ -57,7 +56,7 @@ function Update_Favorites(variant){
 }
 
 function PrependMessage(type, message){
-  flashDiv = $('<div class="alert alert-' + type + '" />');
+  flashDiv = $('<div class="alert alert-' + type + ' role="alert" />');
   flashButton = $('<button class="close" data-dismiss="alert" data-hidden="true" />').html("&times;");
   flashSpan = $('<span />').html(message)
   $("main#content").prepend(flashDiv);

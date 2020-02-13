@@ -4,5 +4,6 @@ module Spree
   	belongs_to :variant, class_name: 'Spree::Variant'
 
   	validates :user, :variant, presence: true
+  	validates :user, uniqueness: { scope: :variant }
   end
 end

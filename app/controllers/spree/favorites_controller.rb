@@ -12,17 +12,17 @@ module Spree
       if @variant
         @favorite = Spree::Favorite.new(variant_id: @variant)
         @favorite.user = spree_current_user
-        if @favorite.save!
-          message = Spree.t(:successfully_created, resource: Spree.t(:favorite))
+        if @favorite.save
+          message = Spree.t(:successfully_created, scope: :favorites)
           type = "success"
         else
-          message = Spree.t(:not_saved)
-          type = "error"
+          message = Spree.t(:not_saved, scope: :favorites)
+          type = "danger"
         end
       else
-        message = Spree.t(:no_option_selected)
-        type = "notice"
-      end
+        message = Spree.t(:no_option_selected, scope: :favorites)
+        type = "secondary"
+      end      
       render :json => { message: message, type: type}
     end
 

@@ -1,5 +1,19 @@
-/*
-*= require spree_favorites/favorites
-*= require spree_favorites/bootstrap-overrides
-*= require spree_favorites/variables
-*/
+.favorite-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  z-index: 2;
+}
+
+.favorite-svg {
+  height: 25px;  
+  width: 25px;
+  margin: 5px;
+  padding: 0;
+  fill: grey;
+}
+
+.wished svg {
+  fill: red !important;
+}
