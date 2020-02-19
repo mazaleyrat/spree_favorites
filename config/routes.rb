@@ -1,7 +1,7 @@
 Spree::Core::Engine.add_routes do
 
 	resources :variants, only: [] do
-    resource :favorite, only: :create
+    resource :favorite, only: [:create, :destroy]
   end
 
 #  resources :users, only: [], :path => 'account' do

@@ -1,0 +1,6 @@
+Deface::Override.new(
+  virtual_path: 'spree/shared/_translations',
+  name: 'add_translation',
+  insert_before: "erb[loud]:contains('}.to_json')",
+  text: "no_option_selected: Spree.t(:no_option_selected, scope: :favorites)"
+)
