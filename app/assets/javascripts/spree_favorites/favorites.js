@@ -1,18 +1,25 @@
-Spree.routes.favorite = function(id) { return Spree.pathFor('variants/' + id + '/favorite') }
+//Spree.routes.favorites = function(user_id, favorite_id) {
+//                            Spree.pathFor('user/'+user_id+'/favorites/'+favorite_id)
+//                          }
+
+var optionValues = []
+var favorites = []
 
 
 Spree.ready(function($) {
-  optionValues = [];
-  optionTypeZero = $('.product-variants-variant-values-radio' + 
-                    '[data-option-type-index=0]' + ':checked');
-  UpdateOptionValues(optionTypeZero);
+
+  if ($("#js-favorite-link").length) {
+    user_id = $("#js-favorite-link").data('user-id')
+    LoadFavorites(user_id)    
+    optionTypeZero = $('.product-variants-variant-values-radio' + '[data-option-type-index=0]' + ':checked');
+    if (optionTypeZero) UpdateOptionValues(optionTypeZero)
+  }
 
 
-//  Usually: variant = parseInt($("#variant_id").val());
+//  Usually: variantId = $("#variant_id").val();
 //  Here we can't get variant this way because the cart_form listener is too slow.
 //  The listener we are adding goes to a different execution queue and finish before "#variant-id"
 //  has been updated.
-
   $("#product-variants input[type='radio']").on("click", function(event){
     UpdateOptionValues($(this));
     var variant = TryVariant(optionValues);
@@ -22,22 +29,24 @@ Spree.ready(function($) {
     } else {
       $("#js-favorite-link").removeClass("wished");
     }
+console.log(favorites)    
   })
 
   $("#js-favorite-link").on("click", function(event){
     event.preventDefault();
-    variant = parseInt($("#variant_id").val());
-    if ( variant ) {
-      if ( $(this).hasClass('wished') ) {
+    var variantId = $("#variant_id").val();
+    if ( variantId ) {
+      var user_id = $(this).data('user-id')
+      if ( favorites.indexOf(parseInt(variantId))>-1 ){
         $(this).removeClass('wished');
-        favorites.splice($.inArray(variant, favorites), 1);
+        favorites.splice($.inArray(variantId, favorites), 1);
         method = "delete";
       } else {
         $(this).addClass('wished');
-        favorites.push(variant);
+        favorites.push(variantId);
         method = "post";
       }
-      Update_Favorites(variant, method);
+      UpdateFavorites(variantId, method);
     } else {
       var type = "secondary";
       var message = Spree.translations.no_option_selected;
@@ -61,7 +70,6 @@ function TryVariant(optVals) {
     var optionValueIds = variant.option_values.map(function(ov) {
       return ov.id
     })
-
     return areArraysEqual(optionValueIds, optVals)
   })
 }
@@ -82,11 +90,12 @@ function sortArray(array) {
 }
 
 
-function Update_Favorites(variant, method){
+function UpdateFavorites(variant_id, method) {
   $.ajax({
-    url: Spree.routes.favorite(variant),
+    url: Spree.pathFor('variants/'+variant_id+'/favorite'),
     method: method,
-    success: function (data, status, xhr) {
+//    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},    
+    success: function (data) {
       // success callback function
       PrependMessage(data.type, data.message)
     }
@@ -95,10 +104,28 @@ function Update_Favorites(variant, method){
 }
 
 
-function PrependMessage(type, message){
+function PrependMessage(type, message) {
   flashDiv = $('<div class="alert alert-' + type + '" role="alert" />');
   flashButton = $('<button class="close" data-dismiss="alert" data-hidden="true" />').html("&times;");
   flashSpan = $('<span />').html(message)
   $("main#content").prepend(flashDiv);
   flashDiv.append(flashButton, flashSpan).show().delay(5000).slideUp();
+}
+
+
+function LoadFavorites(user_id) {
+  var url = Spree.pathFor('account/'+user_id+'/favorites')
+  fetch(url).then(function (response) {
+    // response.json() retuns another promise so you have to wait until it will be fullfilled.
+    if (response.ok) { response.json().then( function(data){ 
+        favorites = data
+        var variantId = $("#variant_id").val();
+        if ( favorites.indexOf(parseInt(variantId))>-1 ){
+          $("js-favorite-link").addClass('wished');
+        } else {
+          $("js-favorite-link").removeClass('wished');
+        }
+      })
+    }
+  })
 }

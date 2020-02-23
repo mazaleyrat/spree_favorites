@@ -1,17 +1,11 @@
 <div class="favorite-link" data-hook="favorite-link">
+  <% heart = inline_svg_tag "favorite", class: "favorite-svg" %>
   <% if spree_current_user %>
-    <% user_favorites = spree_current_user.favorites %>
-    <% favorites = user_favorites.map(&:variant_id) %>
-
-    <%= link_to (inline_svg_tag "favorite", class: "favorite-svg"), "", id: "js-favorite-link" %>
+    <%= link_to heart, "",
+          id: "js-favorite-link",
+          'data-user-id': spree_current_user.id,
+          remote: true %>
   <% else %>
-    <%= link_to (inline_svg_tag "favorite", class: "favorite-svg"), spree_login_path if defined?(spree_login_path) %>
+    <%= link_to heart, spree_login_path if defined?(spree_login_path) %>
   <% end %>
-
-  <script type="text/javascript">
-    window.addEventListener('turbolinks:load', function() {
-    	favorites = <%= spree_current_user.favorites.map(&:variant_id) || [] %>
-    });
-  </script>
 </div>
-

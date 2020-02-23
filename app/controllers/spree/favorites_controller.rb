@@ -1,15 +1,17 @@
 module Spree
   class FavoritesController < Spree::StoreController
 
+    before_action :load_user
     skip_before_action :verify_authenticity_token
 
-#  def index
-#    return @wished_products
-#  end
+    def index
+      favorites = @user.favorites
+      render json: favorites.map{ |fvrt| fvrt.variant_id }
+    end
 
     def create
       @favorite = Spree::Favorite.new(variant_id: params[:variant_id])
-      @favorite.user = spree_current_user
+      @favorite.user = @user
       if @favorite.save
         message = Spree.t(:successfully_created, scope: :favorites)
         type = "success"
@@ -21,7 +23,7 @@ module Spree
     end
 
     def destroy
-      @favorite = Spree::Favorite.where(variant_id: params[:variant_id], user: spree_current_user).first
+      @favorite = @user.favorites.find_by(variant_id: params[:variant_id])
       if @favorite.destroy
         message = Spree.t(:successfully_removed, scope: :favorites)
         type = "success"
@@ -32,10 +34,11 @@ module Spree
       render :json => { message: message, type: type}
     end
 
+    private
 
-#  def load_wishes
-#    @favorites = spree_current_user.favorite_variants
-#3  end
+    def load_user
+      @user = spree_current_user if spree_current_user.present?
+    end
 
   end
 end

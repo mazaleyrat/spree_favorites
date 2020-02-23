@@ -9,7 +9,7 @@ en:
       updated_at: Updated At
     favorites:
       delete_error: An error ocurred trying to remove your favorite. Please, try again or report the issue.
-      no_option_selected: Please select an option like color or size you would like 
+      no_option_selected: Please complete the available options (eg. color, size) you would like 
       successfully_created: Favorite successfully created
       successfully_removed: Favorite successfully removed
       validation_error: An error ocurred trying to save your favorite.

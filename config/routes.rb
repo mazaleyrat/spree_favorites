@@ -4,9 +4,12 @@ Spree::Core::Engine.add_routes do
     resource :favorite, only: [:create, :destroy]
   end
 
-#  resources :users, only: [], :path => 'account' do
-#	  resources :favorites
-#  end
+  resources :users, only: [], :path => 'account' do
+	  resources :favorites, only: [:index, :create, :destroy]
+  end
+
+#  resources :favorites, only: [:index, :create, :destroy]
+
 
 #  resources :wishlists
 #  resources :wished_products, only: [:create, :update, :destroy]
