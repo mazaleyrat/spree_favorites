@@ -1,4 +1,4 @@
-.favorite-link {
+.favorites-div {
   position: absolute;
   top: 0;
   right: 0;
@@ -6,9 +6,17 @@
   z-index: 2;
 }
 
+.favorite-button {
+	padding: 0;
+	background: none;
+	border: none;
+}
+
+.favorite-button:focus {
+   outline: none;
+}
+
 .favorite-svg {
-  height: 25px;  
-  width: 25px;
   margin: 5px;
   padding: 0;
   fill: grey;

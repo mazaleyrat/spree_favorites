@@ -1,15 +1,9 @@
-//Spree.routes.favorites = function(user_id, favorite_id) {
-//                            Spree.pathFor('user/'+user_id+'/favorites/'+favorite_id)
-//                          }
-
 var optionValues = []
 var favorites = []
 
-
 Spree.ready(function($) {
-
-  if ($("#js-favorite-link").length) {
-    user_id = $("#js-favorite-link").data('user-id')
+  if ($("#js-favorite-button").length) {
+    user_id = $("#js-favorite-button").data('user-id')
     LoadFavorites(user_id)    
     optionTypeZero = $('.product-variants-variant-values-radio' + '[data-option-type-index=0]' + ':checked');
     if (optionTypeZero) UpdateOptionValues(optionTypeZero)
@@ -25,19 +19,19 @@ Spree.ready(function($) {
     var variant = TryVariant(optionValues);
     var variantId = (variant && variant.id) || ''
     if ( favorites.indexOf(parseInt(variantId))>-1 ){
-      $("#js-favorite-link").addClass("wished");
+      $("#js-favorite-button").addClass("wished");
     } else {
-      $("#js-favorite-link").removeClass("wished");
+      $("#js-favorite-button").removeClass("wished");
     }
-console.log(favorites)    
+//console.log(favorites)    
   })
 
-  $("#js-favorite-link").on("click", function(event){
-    event.preventDefault();
-    var variantId = $("#variant_id").val();
+  $("#js-favorite-button").on("click", function(event){
+    event.preventDefault()
+    var variantId = parseInt($("#variant_id").val())
     if ( variantId ) {
-      var user_id = $(this).data('user-id')
-      if ( favorites.indexOf(parseInt(variantId))>-1 ){
+      $(this).prop('disabled', true)
+      if ( favorites.indexOf(variantId)>-1 ){
         $(this).removeClass('wished');
         favorites.splice($.inArray(variantId, favorites), 1);
         method = "delete";
@@ -95,11 +89,11 @@ function UpdateFavorites(variant_id, method) {
     url: Spree.pathFor('variants/'+variant_id+'/favorite'),
     method: method,
 //    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},    
-    success: function (data) {
+    success: function(data) {
       // success callback function
       PrependMessage(data.type, data.message)
     }
-  });
+  }).done(function() { $("#js-favorite-button").prop("disabled", false) })
   return false
 }
 
@@ -112,6 +106,26 @@ function PrependMessage(type, message) {
   flashDiv.append(flashButton, flashSpan).show().delay(5000).slideUp();
 }
 
+/*
+function LoadFavorites(user_id) {
+  $.ajax({
+    url: Spree.pathFor('account/'+user_id+'/favorites'),
+    method: 'get',
+    success: function (data) {
+      // success callback function
+      console.log(data)
+      favorites = data
+      var variantId = $("#variant_id").val();
+      if ( favorites.indexOf(parseInt(variantId))>-1 ){
+        $("js-favorite-button").addClass('wished');
+      } else {
+        $("js-favorite-button").removeClass('wished');
+      }
+    }
+  });
+  return false
+}
+*/
 
 function LoadFavorites(user_id) {
   var url = Spree.pathFor('account/'+user_id+'/favorites')
@@ -121,9 +135,9 @@ function LoadFavorites(user_id) {
         favorites = data
         var variantId = $("#variant_id").val();
         if ( favorites.indexOf(parseInt(variantId))>-1 ){
-          $("js-favorite-link").addClass('wished');
+          $("js-favorite-button").addClass('wished');
         } else {
-          $("js-favorite-link").removeClass('wished');
+          $("js-favorite-button").removeClass('wished');
         }
       })
     }

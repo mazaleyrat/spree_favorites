@@ -1,10 +1,11 @@
-<div class="favorite-link" data-hook="favorite-link">
-  <% heart = inline_svg_tag "favorite", class: "favorite-svg" %>
+<div class="favorites-div" data-hook="favorite-link">
+  <% heart = inline_svg_tag "favorite", class: "favorite-svg", size: "25px*25px" %>
   <% if spree_current_user %>
-    <%= link_to heart, "",
-          id: "js-favorite-link",
+    <%= button_tag heart, {
+          id: "js-favorite-button",
+          class: "favorite-button",
           'data-user-id': spree_current_user.id,
-          remote: true %>
+          remote: true } %>
   <% else %>
     <%= link_to heart, spree_login_path if defined?(spree_login_path) %>
   <% end %>

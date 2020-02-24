@@ -1,12 +1,17 @@
 module Spree
   class FavoritesController < Spree::StoreController
-
+    include Spree::ProductsHelper
+    
     before_action :load_user
     skip_before_action :verify_authenticity_token
 
     def index
-      favorites = @user.favorites
-      render json: favorites.map{ |fvrt| fvrt.variant_id }
+      @favorites = @user.favorites
+      favorites_variants_ids = @favorites.map {|fvrt| fvrt.variant_id}      
+      respond_to do |format|
+        format.json { render json: favorites_variants_ids, layout: false }       
+        format.html
+      end
     end
 
     def create
@@ -23,7 +28,7 @@ module Spree
     end
 
     def destroy
-      @favorite = @user.favorites.find_by(variant_id: params[:variant_id])
+      @favorite = @user.favorites.find_by(variant_id: params[:variant_id])      
       if @favorite.destroy
         message = Spree.t(:successfully_removed, scope: :favorites)
         type = "success"
