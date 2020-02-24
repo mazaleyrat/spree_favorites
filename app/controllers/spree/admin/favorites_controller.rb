@@ -1,6 +1,6 @@
 module Spree
   module Admin
-    class WishedProductsController < Spree::Admin::BaseController
+    class FavoritesController < Spree::Admin::BaseController
 
       before_action :load_user
 
@@ -8,15 +8,15 @@ module Spree
 
       def index
         per_page = params[:per_page] || Spree::Config[:admin_products_per_page]
-        @wished_products = @user.wished_products.page(params[:page]).per(per_page)
+        @favorites = @user.favorites.page(params[:page]).per(per_page)
       end
 
       def destroy
-        @wished_product = Spree::WishedProduct.find_by_id(params[:id])
-        if @wished_product.destroy
-          flash[:success] = t(:removed_from_wishlist, scope: :wishlist)
+        @favorite = Spree::Favorite.find_by_id(params[:id])
+        if @favorite.destroy
+          flash[:success] = Spree.t(:successfully_removed, scope: :favorites)
         else
-          flash[:error] = t(:error, scope: :wishlist)
+          flash[:error] = Spree.t(:delete_error, scope: :favorites)
         end
         respond_to do |format|
           format.html { redirect_back(fallback_location: spree.admin_path) }

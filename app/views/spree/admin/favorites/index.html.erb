@@ -1,30 +1,30 @@
-<%= render partial: 'spree/admin/users/sidebar', locals: { current: :wishlist } %>
+<%= render partial: 'spree/admin/users/sidebar', locals: { current: :favorites } %>
 
 <% content_for :page_title do %>
   <%= link_to @user.email, spree.edit_admin_user_url(@user) %> /
-  <%= t(:wishlist, scope: [:wishlist, :admin]) %>
+  <%= Spree.t(:favorites, scope: :favorites) %>
 <% end %>
 
-<% if @wished_products.present? %>
-  <table id="wishlist" class="table table-hover">
+<% if @favorites.present? %>
+  <table id="favorites" class="table table-hover">
     <thead>
       <tr>
-        <th><%= Spree.t(:item_view) %></th>
+        <th><%= Spree.t(:thumbnail) %></th>
         <th><%= Spree.t(:name) %></th>
         <th><%= Spree.t(:status) %></th>
-        <th><%= Spree.t(:date_added) %></th>
+        <th><%= Spree.t(:created_at) %></th>
         <th><%= Spree.t(:price) %></th>
         <th class="actions"></th>
       </tr>
     </thead>
     <tbody id="wished_items">
-      <% @wished_products.each do |wish|
-          variant = wish.variant
+      <% @favorites.each do |favorite|
+          variant = favorite.variant
           product = variant.product %>
       <tr>
         <td style="text-align:center">
           <% if variant.images.length == 0 %>
-            <%= mini_image(variant.product) %>
+            <%= mini_image(product) %>
           <% else %>
             <%= mini_image(variant) %>
           <% end %>
@@ -36,13 +36,13 @@
           <%= variant.can_supply? ? Spree.t(:in_stock) : Spree.t(:out_of_stock) %>
         </td>
         <td>
-          <%= wish.created_at.strftime '%m/%d/%Y' %>
+          <%= favorite.created_at.strftime '%m/%d/%Y' %>
         </td>
         <td>
           <%= variant.display_price %>
         </td>
         <td class="actions actions-1 text-right">
-          <%= link_to_delete wish, url: admin_user_wished_product_url(@user, wish), no_text: true if can?(:delete, wish) %>
+          <%= link_to_delete favorite, url: admin_user_favorite_path(@user, favorite), no_text: true if can?(:delete, favorite) %>
         </td>
       </tr>
       <% end %>
@@ -50,7 +50,7 @@
   </table>
 <% else %>
   <div class="alert alert-info no-objects-found">
-    <%= t(:no_wished_products, scope: [:wishlist, :admin]) %>
+    <%= Spree.t(:no_favorites, scope: :favorites) %>
   </div>
 <% end %>
 

@@ -5,7 +5,7 @@ Spree::Core::Engine.add_routes do
   end
 
   resources :users, only: [], :path => 'account' do
-	  resources :favorites, only: [:index]
+	  resources :favorites, only: :index
   end
 
 #  resources :favorites, only: [:index, :create, :destroy]
@@ -15,10 +15,10 @@ Spree::Core::Engine.add_routes do
 #  resources :wished_products, only: [:create, :update, :destroy]
 #  get '/wishlist' => 'wishlists#default', as: 'default_wishlist'
 
-#  namespace :admin, path: Spree.admin_path do
-#    resources :users do
-#      resources :favorites
-#    end
-#  end
+  namespace :admin, path: Spree.admin_path do
+    resources :users do
+      resources :favorites, only: [:index, :destroy]
+    end
+  end
 
 end
