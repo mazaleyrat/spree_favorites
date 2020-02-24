@@ -2,11 +2,7 @@
 en:
   spree:
     admin:
-      false: "No"
       favorites: Favorites
-      no_favorite_products: No favorite products found
-      true: "Yes"
-      updated_at: Updated At
     favorites:
       delete_error: An error ocurred trying to remove your favorite. Please, try again or report the issue.
       my_favorites: My Favorites
