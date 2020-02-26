@@ -1,6 +1,6 @@
 <li>
   <%= link_to_with_icon 'gift',
-    Spree.t(:favorites, scope: :admin),
+    Spree.t(:favorites),
     spree.admin_user_favorites_path(@user),
     class: "nav-link #{'active' if current == :favorites}" %>
 </li>

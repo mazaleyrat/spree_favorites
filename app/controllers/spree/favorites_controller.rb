@@ -18,10 +18,10 @@ module Spree
       @favorite = Spree::Favorite.new(variant_id: params[:variant_id])
       @favorite.user = @user
       if @favorite.save
-        message = Spree.t(:successfully_created, scope: :favorites)
+        message = Spree.t(:successfully_created)
         type = "success"
       else
-        message = Spree.t(:validation_error, scope: :favorites)
+        message = Spree.t(:validation_error)
         type = "danger"
       end
       render :json => { message: message, type: type}
@@ -30,10 +30,10 @@ module Spree
     def destroy
       @favorite = @user.favorites.find_by(variant_id: params[:variant_id])      
       if @favorite.destroy
-        message = Spree.t(:successfully_removed, scope: :favorites)
+        message = Spree.t(:successfully_removed)
         type = "success"
       else
-        message = Spree.t(:delete_error, scope: :favorites)
+        message = Spree.t(:delete_error)
         type = "danger"
       end
       render :json => { message: message, type: type}
