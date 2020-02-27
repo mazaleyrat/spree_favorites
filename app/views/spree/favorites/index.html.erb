@@ -1,8 +1,18 @@
 <% if @favorites.present? %>
 	<div class="container account-favorites">
-  	<h3 class="text-uppercase spree-mb-large spree-mt-large spree-header" ><%= Spree.t(:my_favorites) %></h3>
-	  <div class="row" data-hook="whised_products">
-  	  <%= render partial: 'favorite', collection: @favorites %>
+  	<h3 class="text-uppercase spree-mb-large spree-mt-large favorites-header" >
+  		<%= Spree.t(:my_favorites) %></h3>
+  	<div class="d-table table-responsive" data-hook>
+    	<div class="active d-none d-lg-table-row favorites-table-header" data-hook="favorites_headers">
+      	<div class="d-table-cell favorite-description-header text-uppercase"><%= Spree.t(:product) %></div>
+      	<div class="d-table-cell"></div>
+      	<div class="d-table-cell favorite-price-header text-uppercase"><%= Spree.t(:price) %></div>    
+      	<div class="d-table-cell favorite-delete-header"></div>
+    	</div>
+
+      <div class="favorites-table-items" data-hook>
+        <%= render partial: 'favorite', collection: @favorites %>
+      </div>
   	</div>
   </div>
 <% else %>
@@ -10,4 +20,3 @@
     <%= Spree.t(:no_favorites) %>
   </div>
 <% end %>
-

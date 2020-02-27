@@ -1,3 +1,8 @@
+/*
+ *= require spree_favorites/favorites
+*/
+
+
 .favorites-div {
   position: absolute;
   top: 0;
@@ -20,6 +25,9 @@
   margin: 5px;
   padding: 0;
   fill: grey;
+  opacity: 0.5;
+  filter: opacity(50%); /* For IE8 and earlier */
+  color: grey;
 }
 
 .wished svg {

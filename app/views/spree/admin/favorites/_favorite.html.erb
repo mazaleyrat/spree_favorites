@@ -31,7 +31,7 @@
   </div>
 
   <div class="favorites-item-delete d-lg-table-cell">
-    <%= link_to '#', class: 'delete', id: "delete_#{dom_id(favorite)}" do %>
+    <%= link_to spree.admin_user_favorite_path(@user, favorite.id), method: "delete" do %>
       <%= icon(name: 'garbage',
                classes: 'favorites-item-delete-icon',
                width: 18.9,

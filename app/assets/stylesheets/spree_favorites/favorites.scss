@@ -1,8 +1,26 @@
 @import "variables";
+@import "bootstrap-overrides";
 @import "bootstrap";
 @import "functions";
 
+
 .favorites {
+  &-header {
+    text-align: center;
+    font-size: font-px-to-rem(18px);
+    margin-bottom: 0;
+    color: theme-color("dark-text");
+    @include media-breakpoint-up(sm) {
+      font-size: font-px-to-rem(34px);
+      margin-top: 17.5px;
+      margin-bottom: 28px;
+    }
+    @include media-breakpoint-up(lg) {
+      font-size: font-px-to-rem(32px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }  
   &-table {
     margin-bottom: 27px;
     @include media-breakpoint-up(lg) {
@@ -82,7 +100,7 @@
           font-weight: 500;
         }
         a {
-          color: theme-color("dark-text");
+          color: theme-color("dark-text") !important;
         }
       }
 
@@ -146,75 +164,6 @@
         .cls-2 {
           clip-path: initial;
         }
-      }
-    }
-  }
-
-  &-buttons {
-    margin-bottom: 28px;
-    @include media-breakpoint-up(lg) {
-      flex-basis: 49%;
-      margin-bottom: 100px;
-    }
-    &-checkout {
-      font-size: font-px-to-rem(17px);
-      @include media-breakpoint-up(sm) {
-        font-size: font-px-to-rem(28px);
-        height: 74.4px;
-      }
-      @include media-breakpoint-up(lg) {
-        font-size: font-px-to-rem(22px);
-        height: 65px;
-      }
-    }
-    &-continue {
-      font-size: font-px-to-rem(14px);
-      font-weight: 700;
-      @include media-breakpoint-up(sm) {
-        font-size: font-px-to-rem(28px);
-        padding-top: 19.8px;
-        padding-bottom: 19.8px;
-        line-height: 1;
-      }
-      @include media-breakpoint-up(lg) {
-        text-decoration: underline;
-        color: theme-color("dark-text");
-        font-weight: 500;
-        font-size: font-px-to-rem(16px);
-        letter-spacing: 0.4px;
-        padding: 0;
-        &:hover,
-        &:focus {
-          color: theme-color("dark-text");
-        }
-      }
-    }
-    &-or {
-      margin: 27px 0;
-      font-size: font-px-to-rem(14px);
-
-      display: table;
-      white-space: nowrap;
-      position: relative;
-      width: 100%;
-      &:before,
-      &:after {
-        border-top: 1px solid $global-border-style;
-        content: "";
-        display: table-cell;
-        position: absolute;
-        top: 47%;
-        width: 45%;
-      }
-      &:before {
-        right: 0;
-      }
-      &:after {
-        left: 0;
-      }
-
-      @include media-breakpoint-up(sm) {
-        font-size: font-px-to-rem(25px);
       }
     }
   }

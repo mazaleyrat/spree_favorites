@@ -7,68 +7,17 @@
 
 
 <% if @favorites.present? %>
-  <div class="d-table table-responsive" id="favorites" data-hook>
-    <div class="active d-none d-lg-table-row favorites-table-header" data-hook="favorites_headers">
+  <div class="d-table table-responsive" data-hook>
+    <div class="active d-none d-lg-table-row favorites-table-header" data-hook>
       <div class="d-table-cell favorite-description-header text-uppercase"><%= Spree.t(:product) %></div>
       <div class="d-table-cell"></div>
       <div class="d-table-cell favorite-price-header text-uppercase"><%= Spree.t(:price) %></div>    
       <div class="d-table-cell favorite-delete-header"></div>
     </div>
 
-    <div id="favorite_items" class="favorites-table-items" data-hook>
-      <% @favorites.each do |favorite|
-          variant = favorite.variant
-          product = variant.product %>
-      <div class="d-table-row favorites-item">
-        <div class="d-table-cell favorites-item-image" data-hook="favorite_item_image">
-          <% if variant.images.length == 0 %>
-            <%= link_to product_image(variant.product), variant.product %>
-          <% else %>
-            <%= link_to image_tag(main_app.url_for(variant.images.first.url(:product))), variant.product %>
-          <% end %>
-        </div>
-        <div class="d-table-cell favorites-item-description" data-hook="favorites_item_description">
-          <h4 class="item-title"><%= link_to product.name, spree.product_path(variant.product) %></h4>
-          <% unless variant.can_supply? %>
-            <span class="out-of-stock">
-              <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br />
-            </span>
-          <% end %>
-          <ul class="item-details-list" data-hook="favorite_description">
-            <% variant.option_values.sort { |ov| ov.option_type.position }.each do |ov| %>
-              <li class="item-details">
-                <% # TODO: rework option values so options_text method can be used here %>
-                <%= "#{ov.option_type.presentation}: #{ov.name.titleize}" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-
-        <div class="favorites-item-price d-lg-table-cell" data-hook="cart_item_price">
-          <%= variant.display_price.to_html %>
-        </div>
-
-        <div class="shopping-cart-item-delete d-lg-table-cell" data-hook="cart_item_delete">
-          <%= link_to '#', class: 'delete', id: "delete_#{dom_id(favorite)}" do %>
-            <%= icon(name: 'garbage',
-                     classes: 'favorites-item-delete-icon',
-                     width: 18.9,
-                     height: 17)  %>
-          <% end %>
-        </div>
-      </div>
-      <% end %>
-
-        <!--td>
-          <%#= favorite.created_at.strftime '%m/%d/%Y' %>
-        </td>
-        <td class="actions actions-1 text-right">
-          <%#= link_to_delete favorite, url: admin_user_favorite_path(@user, favorite), no_text: true if can?(:delete, favorite) %>
-        </td -->
-
-      <%#= render 'line_item_data', view: 'mobile', line_item: line_item, item_form: item_form %>
+    <div class="favorites-table-items" data-hook>
+      <%= render partial: 'favorite', collection: @favorites %>
     </div>
-    <%#= render 'line_item_data', view: 'desktop', line_item: line_item, item_form: item_form %>
   </div>
 <% else %>
   <div class="alert alert-info no-objects-found">
