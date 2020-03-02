@@ -1,7 +1,14 @@
-@import "variables";
-@import "bootstrap-overrides";
-@import "bootstrap";
-@import "functions";
+@import "spree/frontend/variables/variables";
+@import "spree/frontend/variables/bootstrap-overrides";
+
+// Import only needed bootstrap functions, variables and mixins
+// This way we avoid importing bootstrap CSS again to not crash Spree Styling
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins/breakpoints";
+
+@import "spree/frontend/functions";
+
 
 
 .favorites {

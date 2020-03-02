@@ -27,9 +27,10 @@
   fill: grey;
   opacity: 0.5;
   filter: opacity(50%); /* For IE8 and earlier */
-  color: grey;
 }
 
 .wished svg {
   fill: red;
+  opacity: 1;
+  filter: none;
 }

@@ -4,7 +4,7 @@ var favorites = []
 Spree.ready(function($) {
   if ($("#js-favorite-button").length) {
     user_id = $("#js-favorite-button").data('user-id')
-    LoadFavorites(user_id)    
+    LoadFavorites(user_id)
     optionTypeZero = $('.product-variants-variant-values-radio' + '[data-option-type-index=0]' + ':checked');
     if (optionTypeZero) UpdateOptionValues(optionTypeZero)
   }
@@ -18,33 +18,21 @@ Spree.ready(function($) {
     UpdateOptionValues($(this));
     var variant = TryVariant(optionValues);
     var variantId = (variant && variant.id) || ''
-    if ( favorites.indexOf(parseInt(variantId))>-1 ){
-      $("#js-favorite-button").addClass("wished");
-    } else {
-      $("#js-favorite-button").removeClass("wished");
-    }
-//console.log(favorites)    
+
+    if (variantId) { SetFavorite(variantId) }
   })
+
 
   $("#js-favorite-button").on("click", function(event){
     event.preventDefault()
     var variantId = parseInt($("#variant_id").val())
     if ( variantId ) {
       $(this).prop('disabled', true)
-      if ( favorites.indexOf(variantId)>-1 ){
-        $(this).removeClass('wished');
-        favorites.splice($.inArray(variantId, favorites), 1);
-        method = "delete";
-      } else {
-        $(this).addClass('wished');
-        favorites.push(variantId);
-        method = "post";
-      }
-      UpdateFavorites(variantId, method);
+      UpdateFavorites(variantId);
     } else {
-      var type = "secondary";
-      var message = Spree.translations.no_option_selected;
-      PrependMessage(type, message);
+      var type = "secondary"
+      var message = Spree.translations.no_option_selected
+      PrependMessage(type, message)
     }
   })
 
@@ -84,16 +72,30 @@ function sortArray(array) {
 }
 
 
-function UpdateFavorites(variant_id, method) {
+function UpdateFavorites(varId) {  
+  var aux = $.map(favorites, function(val) { return val.variant_id })
+  var pos = aux.indexOf(varId)
+  var Id = ""
+  if ( pos>-1 ){
+    Id = favorites[pos].id
+    favorites.splice(pos, 1)
+    method = "delete"
+  } else {
+    method = "post"
+  }
+  var url = Spree.pathFor('account/'+user_id+'/favorites/')
+  if (method=="delete") { url = url + Id }
   $.ajax({
-    url: Spree.pathFor('variants/'+variant_id+'/favorite'),
+    url: url,
     method: method,
-//    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},    
+    dataType: 'json',    
+    data: { variant_id: varId },
     success: function(data) {
-      // success callback function
+      if (data.favorite && data.type=="success") { favorites.push(data.favorite) }
+      SetFavorite(varId)
       PrependMessage(data.type, data.message)
     }
-  }).done(function() { $("#js-favorite-button").prop("disabled", false) })
+  }).then(function() { $("#js-favorite-button").prop("disabled", false) })
   return false
 }
 
@@ -106,40 +108,27 @@ function PrependMessage(type, message) {
   flashDiv.append(flashButton, flashSpan).show().delay(5000).slideUp();
 }
 
-/*
+
 function LoadFavorites(user_id) {
+  var variantId = $("#variant_id").val();  
   $.ajax({
     url: Spree.pathFor('account/'+user_id+'/favorites'),
     method: 'get',
-    success: function (data) {
-      // success callback function
-      console.log(data)
+    dataType: 'json',
+    success: function(data) {
       favorites = data
-      var variantId = $("#variant_id").val();
-      if ( favorites.indexOf(parseInt(variantId))>-1 ){
-        $("js-favorite-button").addClass('wished');
-      } else {
-        $("js-favorite-button").removeClass('wished');
-      }
-    }
-  });
-  return false
-}
-*/
-
-function LoadFavorites(user_id) {
-  var url = Spree.pathFor('account/'+user_id+'/favorites')
-  fetch(url).then(function (response) {
-    // response.json() retuns another promise so you have to wait until it will be fullfilled.
-    if (response.ok) { response.json().then( function(data){ 
-        favorites = data
-        var variantId = $("#variant_id").val();
-        if ( favorites.indexOf(parseInt(variantId))>-1 ){
-          $("js-favorite-button").addClass('wished');
-        } else {
-          $("js-favorite-button").removeClass('wished');
-        }
-      })
+      SetFavorite(variantId)
     }
   })
+  return false
+}
+
+
+function SetFavorite(varId) {
+  var aux = $.map(favorites, function(val) { return val.variant_id })
+  if ( aux.indexOf(parseInt(varId))>-1 ){
+    $("#js-favorite-button").addClass('wished');
+  } else {
+    $("#js-favorite-button").removeClass('wished');
+  }
 }

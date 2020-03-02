@@ -3,6 +3,6 @@
     <%= Spree.t(:my_favorites) %>
   </div>
   <div class="text-center">
-     <%= link_to inline_svg_tag("favorite", class: "favorite-svg", size: "150px*150px"), spree.user_favorites_path(@user) %>
+     <%= link_to inline_svg_tag("favorite", class: "favorite-svg", size: "150px*150px"), spree.user_favorites_path(@user), class: "favorite-button" %>
   </div>
 </div>
