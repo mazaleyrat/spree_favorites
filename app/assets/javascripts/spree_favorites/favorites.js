@@ -106,6 +106,7 @@ function PrependMessage(type, message) {
   flashSpan = $('<span />').html(message)
   $("main#content").prepend(flashDiv);
   flashDiv.append(flashButton, flashSpan).show().delay(5000).slideUp();
+  window.scrollTo(0, 0)  
 }
 
 

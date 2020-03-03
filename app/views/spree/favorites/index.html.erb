@@ -3,17 +3,24 @@
   	<h3 class="text-uppercase spree-mb-large spree-mt-large favorites-header" >
   		<%= Spree.t(:my_favorites) %></h3>
   	<div class="d-table table-responsive" data-hook>
-    	<div class="active d-none d-lg-table-row favorites-table-header" data-hook="favorites_headers">
-      	<div class="d-table-cell favorite-description-header text-uppercase"><%= Spree.t(:product) %></div>
+    	<div class="active d-none d-lg-table-row favorites-table-header">
+      	<div class="d-table-cell text-uppercase"><%= Spree.t(:product) %></div>
       	<div class="d-table-cell"></div>
-      	<div class="d-table-cell favorite-price-header text-uppercase"><%= Spree.t(:price) %></div>    
-      	<div class="d-table-cell favorite-delete-header"></div>
+      	<div class="d-table-cell text-uppercase"><%= Spree.t(:price) %></div>
+      	<div class="d-table-cell text-uppercase"><%= Spree.t(:favorite_actions) %></div>
     	</div>
 
       <div class="favorites-table-items" data-hook>
         <%= render partial: 'favorite', collection: @favorites %>
       </div>
   	</div>
+
+    <% @product = Spree::Product.new %>    
+    <%= render 'spree/shared/product_added_modal' %>
+    <div id="no-product-available" class="no-product-available-dropdown">
+      <%= render partial: 'spree/shared/no_product_available' %>
+    </div>
+
   </div>
 <% else %>
   <div class="alert alert-info">

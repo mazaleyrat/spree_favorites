@@ -1,6 +1,10 @@
 <% variant = favorite.variant %>
 <% product = variant.product %>
 
+<% variant_images = Spree::VariantPresenter.new().images(variant) %>
+<% data_variant = variant.attributes.merge(images: variant_images).to_json %>
+<% data_product_summary = Spree::ProductSummaryPresenter.new(product).call.to_json %>
+
 <div class="d-table-row favorites-item">
   <div class="d-table-cell favorites-item-image">
     <% if variant.images.length == 0 %>
@@ -30,12 +34,21 @@
     <%= variant.display_price.to_html %>
   </div>
 
-  <div class="favorites-item-delete d-lg-table-cell">
+  <div class="favorites-item-actions d-lg-table-cell">
     <%= link_to spree.user_favorite_path(spree_current_user, favorite.id), method: 'delete' do %>
       <%= icon(name: 'garbage',
-               classes: 'favorites-item-delete-icon',
-               width: 18.9,
-               height: 17)  %>
+               classes: 'favorites-item-actions-delete',
+               width: 24,
+               height: 27) %>
     <% end %>
+
+    <% cart = inline_svg_tag("empty-cart", class: "favorites-item-actions-add-to-cart", size: "24px*27px") %>
+    <%= button_tag cart,
+                 class: 'js-favorite-add-to-cart',
+                 method: 'post',
+                 remote: true,
+                 'data-variant': data_variant,
+                 'data-product-summary': data_product_summary %>
   </div>
+
 </div>

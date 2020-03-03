@@ -5,7 +5,7 @@ Spree::Core::Engine.add_routes do
   end
 
   namespace :admin, path: Spree.admin_path do
-    resources :users do
+    resources :users, only: [] do
       resources :favorites, only: [:index, :destroy]
     end
   end

@@ -150,7 +150,7 @@
         margin-bottom: 28px;
       }
     }
-    &-delete {
+    &-actions {
       float: right;
       @include media-breakpoint-up(sm) {
         margin-top: 5px;
@@ -159,7 +159,13 @@
         float: none;
         margin-top: 0;
       }
-      &-icon {
+      button {
+        padding: 0;
+        background: none;
+        border: none;
+        color: $primary-color;
+      }
+      &-delete {
         @include media-breakpoint-up(sm) {
           width: 33.2px;
           height: 37.3px;
@@ -170,8 +176,22 @@
         }
         .cls-2 {
           clip-path: initial;
-        }
+        }      
       }
+      &-add-to-cart {
+        margin-left: 10px;
+        @include media-breakpoint-up(sm) {
+          width: 37px;
+          height: 41px;
+        }
+        @include media-breakpoint-up(lg) {
+          width: 27px;
+          height: 30px;
+        }
+        .cls-2 {
+          clip-path: initial;
+        }      
+      }      
     }
   }
 }
