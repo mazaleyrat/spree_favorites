@@ -1,16 +1,17 @@
 module Spree
   class FavoritesController < Spree::StoreController
     include Spree::ProductsHelper
-    
+
+# This is an option to avoid tokens on create.
 #    skip_before_action :verify_authenticity_token
 
     def index
       authorize! :index, Spree::Favorite
       @favorites = spree_current_user.favorites
-#      respond_to do |format|
-#        format.html
-#        format.json { render :json => @favorites }        
-#      end      
+      respond_to do |format|
+        format.html
+        format.json { render json: @favorites }        
+      end      
     end
 
     def create
@@ -25,7 +26,7 @@ module Spree
         message = Spree.t(:validation_error)
         type = "danger"
       end
-      render :json => { favorite: @favorite, message: message, type: type}
+      render json: { favorite: @favorite, message: message, type: type }
     end
 
     def destroy

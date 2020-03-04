@@ -28,7 +28,8 @@ Spree.ready(function($) {
     var variantId = parseInt($("#variant_id").val())
     if ( variantId ) {
       $(this).prop('disabled', true)
-      UpdateFavorites(variantId);
+      if (SpreeAPI.oauthToken) { UpdateFavorites(variantId) }
+      else { Spree.fetchApiTokens().then( UpdateFavorites(variantId) )}
     } else {
       var type = "secondary"
       var message = Spree.translations.no_option_selected
@@ -85,11 +86,19 @@ function UpdateFavorites(varId) {
   }
   var url = Spree.pathFor('account/'+user_id+'/favorites/')
   if (method=="delete") { url = url + Id }
+  var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+   
   $.ajax({
     url: url,
+//    headers: { 'X-CSRF-Token': SpreeAPI.oauthToken },
     method: method,
     dataType: 'json',    
     data: { variant_id: varId },
+    beforeSend: function ( xhr ) {
+//not-working:      xhr.setRequestHeader( 'X-CSRF-Token', SpreeAPI.oauthToken );
+//not-working      xhr.setRequestHeader( 'X-Spree-Token', SpreeAPI.oauthToken );      
+      xhr.setRequestHeader( 'X-CSRF-Token', token );      
+    },
     success: function(data) {
       if (data.favorite && data.type=="success") { favorites.push(data.favorite) }
       SetFavorite(varId)

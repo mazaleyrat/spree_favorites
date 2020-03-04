@@ -2,9 +2,7 @@ Spree.ready(function($) {
 
   $('.js-favorite-add-to-cart').on('click', function(event) {
     var variant = $(this).data('variant')
-console.log(variant)
     var product = $(this).data('product-summary')
-console.log(product)
     var variantId = variant.id
     var quantity = 1
 
