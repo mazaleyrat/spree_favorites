@@ -20,10 +20,10 @@ module Spree
       @favorite.user = spree_current_user
 
       if @favorite.save
-        message = Spree.t(:successfully_created)
+        message = Spree.t(:successfully_created, scope: :favorites)
         type = "success"
       else
-        message = Spree.t(:validation_error)
+        message = Spree.t(:validation_error, scope: :favorites)
         type = "danger"
       end
       render json: { favorite: @favorite, message: message, type: type }
@@ -34,11 +34,11 @@ module Spree
       authorize! :destroy, @favorite
 
       if @favorite.destroy
-        message = Spree.t(:successfully_removed)
+        message = Spree.t(:successfully_removed, scope: :favorites)
         type = "success"
         flash[:success] = message        
       else
-        message = Spree.t(:delete_error)
+        message = Spree.t(:delete_error, scope: :favorites)
         type = "danger"
         flash[:error] = message
       end

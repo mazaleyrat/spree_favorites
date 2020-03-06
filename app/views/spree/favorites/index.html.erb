@@ -1,13 +1,13 @@
 <% if @favorites.present? %>
 	<div class="container account-favorites">
   	<h3 class="text-uppercase spree-mb-large spree-mt-large favorites-header" >
-  		<%= Spree.t(:my_favorites) %></h3>
+  		<%= Spree.t(:my_favorites, scope: :favorites) %></h3>
   	<div class="d-table table-responsive" data-hook>
     	<div class="active d-none d-lg-table-row favorites-table-header">
       	<div class="d-table-cell text-uppercase"><%= Spree.t(:product) %></div>
       	<div class="d-table-cell"></div>
       	<div class="d-table-cell text-uppercase"><%= Spree.t(:price) %></div>
-      	<div class="d-table-cell text-uppercase"><%= Spree.t(:favorite_actions) %></div>
+      	<div class="d-table-cell text-uppercase"><%= Spree.t(:favorite_actions, scope: :favorites) %></div>
     	</div>
 
       <div class="favorites-table-items" data-hook>
@@ -24,6 +24,6 @@
   </div>
 <% else %>
   <div class="alert alert-info">
-    <%= Spree.t(:no_favorites) %>
+    <%= Spree.t(:no_favorites, scope: :favorites) %>
   </div>
 <% end %>

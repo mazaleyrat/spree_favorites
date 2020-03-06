@@ -14,9 +14,9 @@ module Spree
       def destroy
         @favorite = Spree::Favorite.find_by_id(params[:id])
         if @favorite.destroy
-          flash[:success] = Spree.t(:successfully_removed)
+          flash[:success] = Spree.t(:successfully_removed, scope: :favorites)
         else
-          flash[:error] = Spree.t(:delete_error)
+          flash[:error] = Spree.t(:delete_error, scope: :favorites)
         end
         respond_to do |format|
           format.html { redirect_back(fallback_location: spree.admin_path) }

@@ -2,7 +2,7 @@
 
 <% content_for :page_title do %>
   <%= link_to @user.email, spree.edit_admin_user_url(@user) %> /
-  <%= Spree.t(:favorites) %>
+  <%= Spree.t(:favorites, scope: :favorites) %>
 <% end %>
 
 
@@ -21,7 +21,7 @@
   </div>
 <% else %>
   <div class="alert alert-info no-objects-found">
-    <%= Spree.t(:no_favorites) %>
+    <%= Spree.t(:no_favorites, scope: :favorites) %>
   </div>
 <% end %>
 
