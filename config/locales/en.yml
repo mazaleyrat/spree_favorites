@@ -1,13 +1,11 @@
 ---
 en:
   spree:
-    favorites:
-        delete_error: An error ocurred trying to remove your favorite. Please, try again or report the issue.
-        favorites: Favorites
-        favorite_actions: Actions
-        my_favorites: My Favorites
-        no_favorites: No favorites found
-        no_option_selected: Please complete the available options you would like (eg. color, size)
-        successfully_created: Favorite successfully created
-        successfully_removed: Favorite successfully removed
-        validation_error: An error ocurred trying to save your favorite.
+    favorite: Favorite
+    favorites: Favorites
+    favorite_actions: Actions    
+    favorite_delete_error: An error ocurred trying to remove your favorite. Please, try again or report the issue.
+    favorite_validation_error: An error ocurred trying to save your favorite. Plese, try again or report the issue.
+    my_favorites: My Favorites
+    no_favorites: No favorites found
+    no_option_selected: Please complete the available options you would like (eg. color, size)

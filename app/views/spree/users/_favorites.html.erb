@@ -1,6 +1,6 @@
 <div class="col-xs-12 col-lg-4">
   <div class="d-block text-center mb-3">
-    <%= Spree.t(:my_favorites, scope: :favorites) %>
+    <%= Spree.t(:my_favorites) %>
   </div>
   <div class="text-center">
      <%= link_to inline_svg_tag("favorite", class: "favorite-svg", size: "150px*150px"), spree.user_favorites_path(@user), class: "favorite-button" %>

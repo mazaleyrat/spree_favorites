@@ -14,7 +14,7 @@ module Spree
       def destroy
         @favorite = Spree::Favorite.find_by_id(params[:id])
         if @favorite.destroy
-          flash[:success] = Spree.t(:successfully_removed, scope: :favorites)
+          flash[:success] = Spree.t(:successfully_removed, resource: :favorite).humanize
         else
           flash[:error] = Spree.t(:delete_error, scope: :favorites)
         end
