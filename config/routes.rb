@@ -1,7 +1,7 @@
 Spree::Core::Engine.add_routes do
 
   resources :users, only: [], :path => 'account' do
-	  resources :favorites, only: [:index, :create, :destroy]
+    resources :favorites, only: [:index, :create, :destroy]
   end
 
   namespace :admin, path: Spree.admin_path do

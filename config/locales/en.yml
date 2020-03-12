@@ -1,10 +1,17 @@
 ---
 en:
+  activerecord:
+    models:
+      spree/favorite:
+        one: Favorite
+        other: Favorites
   spree:
     favorite: Favorite
     favorites: Favorites
     favorite_actions: Actions    
     favorite_delete_error: An error ocurred trying to remove your favorite. Please, try again or report the issue.
+    favorite_successfuly_created: Favorite successfuly created
+    favorite_successfully_removed: Favorite successfuly removed
     favorite_validation_error: An error ocurred trying to save your favorite. Plese, try again or report the issue.
     my_favorites: My Favorites
     no_favorites: No favorites found

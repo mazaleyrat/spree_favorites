@@ -20,7 +20,7 @@ module Spree
       @favorite.user = spree_current_user
 
       if @favorite.save
-        message = Spree.t(:successfully_created, resource: :favorite).humanize
+        message = Spree.t(:favorite_successfully_created)
         type = "success"
       else
         message = Spree.t(:favorite_validation_error)
@@ -34,7 +34,7 @@ module Spree
       authorize! :destroy, @favorite
 
       if @favorite.destroy
-        message = Spree.t(:successfully_removed, resource: :favorite).humanize
+        message = Spree.t(:favorite_successfully_removed)
         type = "success"
         flash[:success] = message        
       else
