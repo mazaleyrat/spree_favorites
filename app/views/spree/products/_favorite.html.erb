@@ -1,6 +1,6 @@
 <div class="favorites-div">
   <% heart = inline_svg_tag "favorite", class: "favorite-svg", size: "25px*25px" %>
-  <% if spree_current_user %>
+  <% if current_spree_user %>
     <%= button_tag heart, {
           id: "js-favorite-button",
           class: "favorite-button",
