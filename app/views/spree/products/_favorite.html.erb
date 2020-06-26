@@ -1,5 +1,5 @@
 <div class="favorites-div">
-  <% heart = inline_svg_tag "favorite", class: "favorite-svg", size: "25px*25px" %>
+  <% heart = image_tag "favorite.svg", class: "favorite-svg", size: "25px*25px" %>
   <% if current_spree_user %>
     <%= button_tag heart, {
           id: "js-favorite-button",
