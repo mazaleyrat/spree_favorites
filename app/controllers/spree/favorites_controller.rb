@@ -10,8 +10,8 @@ module Spree
       @favorites = spree_current_user.favorites
       respond_to do |format|
         format.html
-        format.json { render json: @favorites }        
-      end      
+        format.json { render json: @favorites }
+      end
     end
 
     def create
@@ -36,7 +36,7 @@ module Spree
       if @favorite.destroy
         message = Spree.t(:favorite_successfully_removed)
         type = "success"
-        flash[:success] = message        
+        flash[:success] = message
       else
         message = Spree.t(:favorite_delete_error)
         type = "danger"
@@ -44,8 +44,8 @@ module Spree
       end
 
       respond_to do |format|
-        format.html { redirect_to spree.user_favorites_path(spree_current_user) }
-        format.json { render :json => { message: message, type: type} }        
+        format.html { redirect_to '/account' }
+        format.json { render :json => { message: message, type: type} }
       end
     end
 
